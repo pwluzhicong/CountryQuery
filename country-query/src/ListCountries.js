@@ -18,18 +18,36 @@ const client = new ApolloClient({
 const fields = ["Name", "OfficialName", "Capital", "Population", "Currencies", "Subregion", "Languages"];
 
 function ListCountries(props) {
+    // const [continent, setContinent] = useState(props.continent);
+    const [countryCount, setCountryCount] = useState(2);
+    const [countryList, setCountryList] = useState([]);
+
+
+    // const [showResults, setShowResults] = React.useState(false);
+    
+    const [continentNow, setContinentNow] = useState(props.continent);
+    const showResults = (continentNow == props.continent);
+
+    // const continent = props.continent;
+    // const continent = ()=>{
+    //   setShowResults(false);
+    //   return props.continent;
+    // }
+    const continent = props.continent;
+    // setContinent(props.continent);
+    // const [continent, setContinent] = useState(props.continent);
+
+    // const {data3, loading3, error3} = useQuery(LIST_CONTINENTS2, {client});
+  
     const LIST_COUNTRIES = gql`
     {
       countries(filter: { continent: { eq: "${props.continent}" } }){code, name}
     }
     `;
-    const [countryCount, setCountryCount] = useState(2);
-    const [countryList, setCountryList] = useState([]);
-
-    // const {data3, loading3, error3} = useQuery(LIST_CONTINENTS2, {client});
     const {data, loading, error} = useQuery(LIST_COUNTRIES, {client});
 
     if (loading || error) {
+      // setShowResults(false);
       return <p>{error ? error.message : 'Fetching Countries...'}</p>;
     }
 
@@ -53,9 +71,7 @@ function ListCountries(props) {
     return (
         <div>
         <div>
-        </div>
-        <div>
-            Total Number Of Countries: {data.countries.length}
+            Total Number Of Countries of {continent}: {data.countries.length}
         </div>
         <div>
         Select Number: <input 
@@ -67,9 +83,14 @@ function ListCountries(props) {
             max={10}
         >
         </input> 
-        <button onClick={()=>setCountryList(chooseCountries(countryCount))}>Select Countries</button>
+        <button onClick={()=>{
+          setCountryList(chooseCountries(countryCount));
+          // setShowResults(true);
+          setContinentNow(props.continent);
+          // setContinent(props.continent);
+        }}>Select Countries</button>
         </div>
-            <table>
+        {showResults?<table>
                 <tr>
                 {
                     fields.map((x)=><th>{x}</th>)
@@ -77,8 +98,8 @@ function ListCountries(props) {
                 </tr>
                 {countryList.map((x)=><CountryInfo name={x.name}></CountryInfo>)}
             
-            </table>
-
+            </table>:<div></div>
+        } 
 
             {/* {props.continent} {data.countries.length} */}
 

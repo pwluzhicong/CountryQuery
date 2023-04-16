@@ -36,9 +36,9 @@ function CountryInfo(props) {
                     }
                     else{
                         if(field == "currencies")
-                        return <td>{Object.keys(fieldVal).join('|')}</td>
+                        return <td>{Object.keys(fieldVal).join(', ')}</td>
                         else
-                        return <td>{Object.values(fieldVal).join('|')}</td>
+                        return <td>{Object.values(fieldVal).join(', ')}</td>
                         // return <td>{Object.values(fieldVal).join()}</td>
                     }
                 })
@@ -49,7 +49,7 @@ function CountryInfo(props) {
     
     }
       
-      ).catch(error => setRetObj(<tr>No information found!</tr>));
+      ).catch(error => setRetObj(<tr><td>{props.name}</td> <td>No information found!</td></tr>));
     }
 
     setInfo(setRetObj);
