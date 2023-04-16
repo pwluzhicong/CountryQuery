@@ -13,4 +13,11 @@ npm install --save react react-dom react-scripts
 npm start
 
 
-http://localhost:3000/
+then visit http://localhost:3000/
+
+
+## Why React?
+
+1. It's hard to convince user to install an Application for such a simple task, Web page is the easiest way to use.
+
+2. We don't want to waste backend calculation or communication resource. This task can be totally done by the user's explorer, and there is no reason to resend the data of country info by our server, since we alrealy have the appropriate APIs for this task.
