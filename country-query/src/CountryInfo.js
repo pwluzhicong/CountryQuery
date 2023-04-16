@@ -7,8 +7,10 @@ const fields = ["capital", "population", "currencies", "subregion", "languages"]
 
 function CountryInfo(props) {
     const [retObj, setRetObj] = useState(<tr>Loading</tr>);
+
+    // deal with the optional name: "A [B]" and "U.S." in the name
     const idx = props.name.indexOf('[');
-    const commonName = (idx == -1 ? props.name: props.name.slice(0,idx).trim());
+    const commonName = (idx == -1 ? props.name: props.name.slice(0,idx).trim()).replace("U.S.", "United States");
 
     const setInfo = (setHook)=>{
         fetch(`https://restcountries.com/v3.1/name/${commonName}`)
