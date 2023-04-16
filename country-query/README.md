@@ -10,6 +10,8 @@ cd CountryQuery/country-query
 
 npm install --save react react-dom react-scripts
 
+npm install react-svg-worldmap --save
+
 npm start
 
 
